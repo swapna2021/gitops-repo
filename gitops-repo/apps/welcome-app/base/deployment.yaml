@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: welcome-app
+  labels: { app: welcome-app }
+spec:
+  replicas: 2
+  selector:
+    matchLabels: { app: welcome-app }
+  template:
+    metadata:
+      labels: { app: welcome-app }
+    spec:
+      containers:
+        - name: web
+          image: REPLACEME/welcome-app:REPLACEME # patched in overlay
+          ports: [{ containerPort: 80 }]
+          resources:
+            requests: { cpu: "50m", memory: "64Mi" }
+            limits:   { cpu: "200m", memory: "128Mi" }
